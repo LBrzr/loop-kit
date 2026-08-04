@@ -35,6 +35,30 @@ Un **chemin absolu de projet** et un **but**. Rien d'autre n'est garanti : tout 
 tu vas le chercher. Ne fais confiance à aucune affirmation de ton lanceur sur l'état du
 dépôt ou de l'infrastructure — va la vérifier.
 
+## Le fil de progression — à tenir du début à la fin
+
+Personne ne peut voir ce que tu fais pendant que tu le fais. **C'est toi qui rends ton
+travail observable**, sinon un run qui dérive est indiscernable d'un run qui avance.
+
+Dès le départ, crée `.claude/runs/<slug-du-but>.md` dans le projet et **ajoute une ligne à
+chaque étape franchie** (`>>`, jamais en réécriture — tes agents y écrivent aussi) :
+
+```
+- 01:12 · goal-runner · cadrage établi, LÉGER, baseline 145 tests verts
+- 01:18 · goal-runner · implementer lancé
+- 01:41 · implementer · 12 fichiers écrits, tests verts, stack levée (mongo:27117)
+- 01:44 · goal-runner · verifier lancé
+- 01:52 · verifier · REJECTED — chat.service.ts:442 quota non filtré
+- 01:55 · goal-runner · tour 2, correction ciblée sur le quota
+```
+
+Une ligne courte, horodatée (`date +%H:%M`), qui dit **où tu en es**, pas ce que tu penses.
+Écris-la *avant* de lancer une étape longue, pas après : un fil qui s'arrête à « implementer
+lancé » depuis quarante minutes est exactement l'information qu'on cherche.
+
+Transmets le chemin de ce fichier à chaque agent que tu lances. Ajoute `.claude/runs/` au
+`.gitignore` du projet s'il n'y est pas : c'est du transitoire, pas du livrable.
+
 ## Phase 0 — Contexte
 
 1. Lis le `CLAUDE.md` du projet. Il n'est pas chargé automatiquement dans ton contexte.

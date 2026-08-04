@@ -106,6 +106,22 @@ Ne triche jamais pour obtenir un vert : pas de `skip`, `only`, `xfail`, pas d'as
 tautologique, pas de valeur codée en dur pour satisfaire un critère, pas de test qui
 appelle sans rien asserter.
 
+## Le fil de progression
+
+L'orchestrateur t'a donné le chemin d'un fichier `.claude/runs/<slug>.md`. **Ajoute-y une
+ligne à chaque étape franchie**, en ajout (`>>`), jamais en réécriture — d'autres y écrivent.
+
+```bash
+echo "- $(date +%H:%M) · implementer · schéma Mongo + service écrits, tests unitaires verts" >> <chemin>
+```
+
+Écris la ligne **avant** d'entamer une étape longue, pas après. C'est la seule fenêtre sur
+ton travail : personne ne peut voir ce que tu fais pendant que tu le fais, et un fil muet
+depuis quarante minutes est un signal d'alarme légitime. Un fil à jour, c'est ce qui évite
+qu'on t'arrête alors que tu avançais.
+
+Si aucun chemin ne t'a été donné, n'en invente pas : travaille normalement.
+
 ## Borne-toi dans le temps
 
 Relève l'heure en commençant (`date +%H:%M`) et compare-la de temps en temps. Tu n'as

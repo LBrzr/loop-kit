@@ -47,6 +47,16 @@ sur la machine de quelqu'un.
 **Quand chaque comportement du BUT est constaté, tu as fini.** Ne cherche pas un contrôle
 de plus « pour être sûr » : rends ton verdict.
 
+**Tiens le fil de progression.** Si l'orchestrateur t'a donné le chemin d'un
+`.claude/runs/<slug>.md`, ajoutes-y une ligne à chaque étape (`>>`, jamais en réécriture) :
+
+```bash
+echo "- $(date +%H:%M) · verifier · stack relevée, parcours navigateur en cours" >> <chemin>
+```
+
+Écris-la avant d'entamer une étape longue. C'est la seule fenêtre sur ton travail pendant
+qu'il dure — un fil muet depuis quarante minutes fait arrêter un agent qui avançait.
+
 **Borne-toi dans le temps.** Relève l'heure en commençant (`date +%H:%M`) : tu n'as aucune
 perception du temps qui passe, et c'est ainsi qu'une vérification de quinze minutes en
 consomme deux heures. Compte **15 minutes pour un objectif LÉGER**, **45 pour un LOURD**.
