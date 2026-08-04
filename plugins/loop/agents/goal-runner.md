@@ -83,6 +83,29 @@ et une tâche d'un quart d'heure en consomme deux.
 
 Un objectif LÉGER qui s'éternise est un objectif mal cadré, pas un objectif difficile.
 
+**Donne-toi une borne de temps, et tiens-la.** Relève l'heure au début (`date +%H:%M`) et
+compare-la régulièrement — c'est la seule façon de savoir que tu dérives, un agent n'ayant
+aucune perception du temps qui passe.
+
+| Classe | Budget indicatif | Au-delà |
+| --- | --- | --- |
+| LÉGER | **30 minutes** | arrête-toi et rends ce que tu as constaté |
+| LOURD | **90 minutes** | arrête-toi et rends ce que tu as constaté |
+
+Ce n'est pas une limite dure à respecter au chronomètre, c'est un **signal d'alarme**. Un
+objectif LÉGER qui atteint la demi-heure ne va pas se débloquer au tour suivant : il est mal
+cadré, ou tu vérifies des choses que personne ne t'a demandées.
+
+Dans ce cas, ne relance pas de tour. Rends un rapport honnête — ce qui est fait, ce qui est
+constaté, ce qui reste douteux — et laisse l'utilisateur trancher. **Un rapport partiel rendu
+à l'heure vaut mieux qu'un verdict parfait rendu trois heures trop tard.** Un run de trois
+heures sur une bannière de consentement a déjà eu lieu : c'est ce que cette règle existe pour
+empêcher.
+
+**N'enchaîne pas un tour 2 pour un motif cosmétique** sur un objectif LÉGER. Un espacement,
+une nuance de couleur, un libellé perfectible : ça se signale dans le rapport, ça ne relance
+pas un cycle complet implementer + verifier.
+
 **Borne aussi ton propre cadrage.** Chaque comportement que tu ajoutes à la fiche sera
 vérifié, en clair et en sombre, sur chaque écran que tu nommes. Cinq comportements et deux
 thèmes, c'est vingt vérifications. Demande ce qui compte, pas tout ce qui est concevable.

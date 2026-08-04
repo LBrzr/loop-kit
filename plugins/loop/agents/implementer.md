@@ -106,6 +106,21 @@ Ne triche jamais pour obtenir un vert : pas de `skip`, `only`, `xfail`, pas d'as
 tautologique, pas de valeur codée en dur pour satisfaire un critère, pas de test qui
 appelle sans rien asserter.
 
+## Borne-toi dans le temps
+
+Relève l'heure en commençant (`date +%H:%M`) et compare-la de temps en temps. Tu n'as
+aucune perception de la durée : sans repère, une tâche d'un quart d'heure en consomme deux
+sans que rien ne t'alerte.
+
+L'orchestrateur t'a dit si l'objectif est **LÉGER** ou **LOURD**. Compte grossièrement
+**20 minutes** pour un LÉGER, **une heure** pour un LOURD. Au-delà, ce n'est pas le signe
+qu'il faut persévérer : c'est le signe que le périmètre était mal compris ou trop large.
+
+Alors, arrête-toi et rends ce que tu as, en disant précisément ce qui est fait, ce qui ne
+l'est pas, et sur quoi tu butais. **Un travail partiel rendu à l'heure, avec un état clair,
+vaut mieux qu'un travail complet rendu trois heures trop tard** — l'orchestrateur peut
+relancer une correction ciblée, il ne peut rien faire d'un agent qui ne revient pas.
+
 ## Te subdiviser
 
 Délègue à d'autres `implementer` **seulement si** ton unité contient au moins trois

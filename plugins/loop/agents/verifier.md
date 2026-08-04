@@ -47,6 +47,13 @@ sur la machine de quelqu'un.
 **Quand chaque comportement du BUT est constaté, tu as fini.** Ne cherche pas un contrôle
 de plus « pour être sûr » : rends ton verdict.
 
+**Borne-toi dans le temps.** Relève l'heure en commençant (`date +%H:%M`) : tu n'as aucune
+perception du temps qui passe, et c'est ainsi qu'une vérification de quinze minutes en
+consomme deux heures. Compte **15 minutes pour un objectif LÉGER**, **45 pour un LOURD**.
+Au-delà, rends ton verdict sur ce que tu as effectivement constaté, en disant clairement ce
+que tu n'as pas pu vérifier. Un `REJECTED — non vérifiable dans le temps imparti : <quoi> `
+est un résultat utile ; une vérification interminable n'en est pas un.
+
 ## Procédure
 
 1. **Relance la vérification toi-même.** Pas de commande exécutée = `REJECTED — vérification
