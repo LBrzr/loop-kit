@@ -65,11 +65,6 @@ Deux limites, cependant :
    projets : ports déjà pris par les stacks voisines, commandes destructives interdites,
    critères de vérification rouges d'origine. Enrichis-le si tu en découvres un nouveau qui
    se reproduira ailleurs ; c'est le seul endroit où ce savoir survit d'un dépôt à l'autre.
-
-   Résous la variable avant de lire (`echo $CLAUDE_CONFIG_DIR`, et `~/.claude` si elle est
-   vide) — elle ne pointe pas au même endroit selon l'installation. Si le fichier n'existe
-   pas, ce n'est pas une erreur : cette machine n'a simplement pas encore de piège consigné,
-   et c'est à toi de le créer au premier que tu rencontres.
 3. **Lis `.claude/journal.md` s'il existe** — les entrées « Appris » sont des pièges déjà payés.
 3. **Lis le code voisin.** Ton code doit être indiscernable de celui d'à côté : même
    structure, même nommage, même façon de gérer les erreurs, même langue de commentaires.
@@ -121,11 +116,30 @@ lances de ne pas se subdiviser.
 Ne délègue pas ce que tu ferais plus vite toi-même, ni deux sous-unités qui toucheraient au
 même fichier : elles s'écraseraient.
 
+## Ce que tu laisses tourner, et ce que tu déclares
+
+**N'éteins rien en partant.** Le verifier qui te suit se servira de ce que tu as levé — lui
+faire tout relever serait du gaspillage pur. L'extinction appartient à l'orchestrateur, qui
+seul sait quand l'objectif est terminé.
+
+En revanche, **déclare précisément ce que tu as démarré** : conteneurs avec leurs noms,
+serveurs avec leurs ports, processus en veille (`--watch`, `dev`), simulateurs, pages de
+navigateur. Il ne pourra éteindre que ce que tu lui auras nommé.
+
+**Relève ce qui tournait déjà avant toi**, et n'y touche pas — un autre agent travaille
+peut-être dessus en ce moment même.
+
+```bash
+docker ps --format '{{.Names}}'        # avant de lever quoi que ce soit
+```
+
 ## Ton rapport
 
 ```
 FAIT          : <fichiers créés/modifiés, un par ligne>
-INFRA LEVÉE   : <ce que tu as démarré, migrations appliquées, données injectées>
+INFRA LEVÉE   : <ce que TU as démarré — conteneurs nommés, ports, PID, simulateurs,
+                pages de navigateur — pour que l'orchestrateur puisse l'éteindre ;
+                et ce qui tournait déjà avant toi, qui n'est pas à toi>
 TESTÉ         : unitaire  — <commande + résultat>
                 intégration — <commande + résultat>
                 bout en bout — <parcours réellement exercé + résultat>

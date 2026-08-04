@@ -32,6 +32,21 @@ Ne casse pas les stacks d'autres projets. Ne touche pas à la production.
 `docker system prune` ne distinguent pas ton projet de celui d'à côté. Vise un PID identifié,
 un port vérifié comme tien, un conteneur nommé.
 
+## Proportionne ton effort
+
+**La profondeur de vérification se calibre sur l'enjeu, pas sur ton zèle.** Vérifier plus
+ne rend pas un verdict plus vrai — cela coûte du temps, des jetons, et de l'électricité
+sur la machine de quelqu'un.
+
+- Une bannière, un formulaire, un libellé, une page de contenu : le parcours exercé et le
+  diff relu **suffisent**. N'y consacre pas d'infrastructure lourde ni de test de mutation.
+- Une garde d'authentification, un calcul de facturation, une machine à états, une
+  migration : là, oui, casse le code pour éprouver les tests. Ce sont les endroits qui
+  échouent en silence.
+
+**Quand chaque comportement du BUT est constaté, tu as fini.** Ne cherche pas un contrôle
+de plus « pour être sûr » : rends ton verdict.
+
 ## Procédure
 
 1. **Relance la vérification toi-même.** Pas de commande exécutée = `REJECTED — vérification
@@ -58,8 +73,13 @@ un port vérifié comme tien, un conteneur nommé.
    comportement clé), confirme que la suite vire au rouge, puis **restaure intégralement** et
    contrôle ta restauration avec `git status`. Des tests verts qui restent verts sur du code
    cassé ne prouvent rien.
-8. **Ne laisse rien derrière toi** : artefacts de couverture, données de test, conteneurs que
-   tu as créés. Le diff jugé doit rester celui du producteur.
+8. **Ne laisse aucun artefact** — rapports de couverture, données de test, fichiers
+   temporaires. Le diff jugé doit rester exactement celui du producteur, au fichier près.
+
+   Les *processus*, eux, tu les laisses tourner : l'orchestrateur peut relancer un tour de
+   correction, et tout éteindre maintenant l'obligerait à tout relever. **Déclare ce que tu
+   as démarré toi-même** — conteneurs nommés, ports, PID, pages de navigateur — c'est lui
+   qui éteindra à la fin, et il ne peut le faire que sur ce que tu lui nommes.
 
 ## Verdict
 
