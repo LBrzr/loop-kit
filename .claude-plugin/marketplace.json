@@ -1,0 +1,21 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "loop-kit",
+  "description": "Orchestration d'objectifs autonomes : on donne un projet et un but, un agent cadre, fait coder, fait juger, corrige et reboucle jusqu'au verdict",
+  "owner": {
+    "name": "Leandre AKAKPO",
+    "email": "contact@leandre.io"
+  },
+  "plugins": [
+    {
+      "name": "loop",
+      "description": "Un objectif, un agent, un verdict. goal-runner mène une fonctionnalité de bout en bout : il cadre le but en critère observable, délègue à un implementer qui lève l'infrastructure et exerce le parcours réel, fait juger par un verifier indépendant, analyse les rejets et relance jusqu'à approbation, puis journalise.",
+      "author": {
+        "name": "Leandre AKAKPO",
+        "email": "contact@leandre.io"
+      },
+      "source": "./plugins/loop",
+      "category": "development"
+    }
+  ]
+}
