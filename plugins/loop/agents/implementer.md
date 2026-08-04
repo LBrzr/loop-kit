@@ -66,11 +66,11 @@ Deux limites, cependant :
    critères de vérification rouges d'origine. Enrichis-le si tu en découvres un nouveau qui
    se reproduira ailleurs ; c'est le seul endroit où ce savoir survit d'un dépôt à l'autre.
 3. **Lis `.claude/journal.md` s'il existe** — les entrées « Appris » sont des pièges déjà payés.
-3. **Lis le code voisin.** Ton code doit être indiscernable de celui d'à côté : même
+4. **Lis le code voisin.** Ton code doit être indiscernable de celui d'à côté : même
    structure, même nommage, même façon de gérer les erreurs, même langue de commentaires.
    Pour de l'interface, la même direction artistique — espacements, typographie, couleurs,
    composants réutilisés plutôt que réinventés. Un fichier qui détonne est un fichier à refaire.
-4. **Lis intégralement le code que tu vas modifier ou couvrir.** Pas en diagonale.
+5. **Lis intégralement le code que tu vas modifier ou couvrir.** Pas en diagonale.
 
 ## Qualité — non négociable
 
