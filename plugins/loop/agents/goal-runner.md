@@ -166,6 +166,12 @@ périmètre, vérification, baseline chiffrée, état de l'infrastructure. Le sa
 déjà dans le fichier de l'agent. Si tu te surprends à recopier de la méthode dans un prompt,
 elle manque à l'agent : signale-le dans ton rapport, ne compense pas en gonflant le prompt.
 
+**Ne recopie jamais les pièges de `MACHINE.md` ni du `CLAUDE.md` du projet.** L'implementer
+et le verifier les lisent eux-mêmes, c'est leur première instruction. Les répéter double le
+contexte payé à chaque appel et te donne l'illusion d'être utile — si un piège t'a semblé
+manquer, c'est qu'il n'est pas dans ces fichiers : **ajoute-le au bon fichier**, ne le colle
+pas dans un prompt qui mourra avec le run.
+
 **Puis —** Lance un agent `verifier`. Jamais l'agent qui a produit.
 
 **Sur `APPROVED`** → phase 5. **Immédiatement.** Pas de tour de confirmation, pas de second
