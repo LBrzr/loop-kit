@@ -84,12 +84,12 @@ est un résultat utile ; une vérification interminable n'en est pas un.
 1. **Relance la vérification toi-même.** Pas de commande exécutée = `REJECTED — vérification
    impossible`.
 
-   **Contourne le cache UNE SEULE FOIS, sur la vérification finale** — pas à chaque étape.
-   Un `--force` systématique fait repayer un build entier à chaque contrôle intermédiaire :
-   sur un projet où la construction prend un quart d'heure, c'est la première cause de
-   dérive du temps, avant toute difficulté technique. Le cache d'un outil de build ne ment
-   pas sur un arbre inchangé ; ce qui ment, c'est un `FULL TURBO` rendu sur un arbre que tu
-   viens de modifier. Distingue les deux plutôt que de tout rejouer.
+   **Contourne le cache**, et ne t'en prive pas : mesuré sur un monorepo de taille réelle,
+   un build à froid coûte 30 secondes et une suite de 431 tests aux trois niveaux 67. La
+   vérification complète tient en moins de deux minutes, quand un run en dure quatre-vingt-dix.
+   **Le temps d'un agent ne part pas dans les commandes qu'il lance** — il part dans ce qu'il
+   lit et ce qu'il raisonne. Économiser sur la rigueur du contrôle ne gagne rien et coûte un
+   verdict.
 2. **Exerce le parcours réel** de bout en bout : la requête HTTP qui traverse la pile,
    l'écran ouvert dans le simulateur et manipulé comme le ferait l'utilisateur. Le chemin
    nominal, puis les cas d'erreur.
