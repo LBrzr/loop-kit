@@ -65,6 +65,52 @@ et forcer les implémentations de simulation, de sorte qu'une suite lancée par 
 `.env` de développement ne puisse rien facturer. Le plus sûr est qu'elle s'arrête net si une
 clé payante est présente, plutôt que de faire confiance à une variable de bascule.
 
+## Les serveurs MCP orphelins s'accumulent et brûlent le processeur
+
+Un serveur MCP est lancé par la session Claude Code qui le déclare. **Il ne meurt pas
+toujours avec elle.** Chaque `/exit` suivi d'une relance peut en laisser un derrière, et ils
+s'empilent en silence.
+
+Constaté : **trois** serveurs du canal Telegram vivants en même temps, dont deux orphelins
+de redémarrages successifs, **à 66 % de processeur chacun**. Telegram n'autorise qu'un seul
+consommateur de messages par jeton : les autres reçoivent un conflit et retentent, en boucle
+serrée. Le verrou `bot.pid` n'enregistre que le dernier démarré — il tue donc un prédécesseur,
+jamais deux.
+
+**Le symptôme est trompeur** : le canal fonctionnait, les messages passaient. Rien n'indiquait
+que trois processus se battaient pour le même flux. Seul le ventilateur le disait.
+
+À vérifier dès qu'une machine chauffe sans raison, ou après plusieurs redémarrages de session :
+
+```bash
+pgrep -f "server\.ts"          # ou le nom du serveur MCP concerné
+top -l 2 -o cpu -n 10 -stats pid,cpu,command | tail -11
+```
+
+Garder celui dont le PID figure dans le fichier de verrou, tuer les autres **par PID
+identifié** — jamais par motif. Ils absorbent `SIGTERM` (gestionnaires d'exception) : il faut
+`kill -9`, et viser aussi le parent `bun run` / `node`, qui peut relancer l'enfant.
+
+## Une commande de constat qui n'affiche rien n'a rien constaté
+
+`lsof ... | awk '...' || echo "libre"` **ment**. Le `||` teste le code de sortie du dernier
+maillon du tube — `awk`, qui renvoie 0 même sans rien imprimer — et jamais celui de `lsof`.
+Résultat : ni « occupé », ni « libre », et un silence qu'on lit comme un feu vert.
+
+Constaté : un port annoncé libre à un agent alors qu'un watcher orphelin le tenait depuis
+deux heures. L'agent l'a découvert seul et a dû reprendre l'état à zéro.
+
+**La forme juste** — capturer, puis tester le vide :
+
+```bash
+out=$(lsof -nP -iTCP:3010 -iTCP:3011 -sTCP:LISTEN 2>/dev/null)
+if [ -z "$out" ]; then echo "libres"; else echo "$out"; fi
+```
+
+Vaut pour tout constat d'état : ports, conteneurs, processus. **Un silence n'est pas une
+réponse.** Si la commande ne dit pas explicitement « rien », elle n'a rien prouvé — et c'est
+exactement ce qui a masqué les serveurs orphelins ci-dessus pendant trente-huit minutes.
+
 ## Docker tourne, mais rien n'est garanti
 
 Le démon est en général actif, les conteneurs non. Vérifier plutôt que présumer, et relever
