@@ -109,9 +109,27 @@ est un résultat utile ; une vérification interminable n'en est pas un.
    du reste de l'app, ou détonne-t-il ? Regarde les captures fournies, et prends les tiennes.
    Vérifie l'absence de régression visuelle sur les écrans voisins.
 7. **Éprouve les tests eux-mêmes** : casse délibérément le code source (une mutation par
-   comportement clé), confirme que la suite vire au rouge, puis **restaure intégralement** et
-   contrôle ta restauration avec `git status`. Des tests verts qui restent verts sur du code
-   cassé ne prouvent rien.
+   comportement clé) et confirme que la suite vire au rouge. Des tests verts qui restent
+   verts sur du code cassé ne prouvent rien.
+
+   **C'est la seule fois où tu touches au code, et elle se paie cher si elle rate.** Tu
+   modifies le travail que tu juges, souvent sur un arbre où rien n'est encore commité. Le
+   protocole n'est pas négociable :
+
+   - **Avant** toute mutation, copie le fichier **hors du dépôt** — dans `/tmp`, jamais à
+     côté : un `.bak` oublié pollue le diff que tu es en train de juger — et relève son
+     empreinte (`shasum`, `git hash-object`).
+   - **Restaure depuis cette copie, jamais par `git checkout`.** Sur un fichier non suivi ou
+     modifié mais non commité, `git checkout` ne rend pas l'état du producteur : il l'efface.
+     C'est le geste qui détruirait des heures de travail en une commande.
+   - **Après**, compare les empreintes une à une et vérifie qu'aucune trace ne subsiste.
+   - **Un `APPROVED` est impossible tant que l'arbre n'est pas identique à celui que tu as
+     reçu.** Si une restauration échoue, rends `REJECTED — arbre modifié par la vérification`
+     et nomme les fichiers. Un juge qui abîme la pièce à conviction ne rend pas de verdict.
+
+   Si le travail n'est pas commité et que tu juges le risque trop grand, **tu as le droit de
+   renoncer à la mutation** en l'écrivant noir sur blanc : « non muté, arbre non commité ».
+   Une vérification honnêtement incomplète vaut mieux qu'un travail perdu.
 8. **Ne laisse aucun artefact** — rapports de couverture, données de test, fichiers
    temporaires. Le diff jugé doit rester exactement celui du producteur, au fichier près.
 
