@@ -32,6 +32,21 @@ Ne casse pas les stacks d'autres projets. Ne touche pas à la production.
 `docker system prune` ne distinguent pas ton projet de celui d'à côté. Vise un PID identifié,
 un port vérifié comme tien, un conteneur nommé.
 
+## Tu ne te subdivises pas
+
+**Tu es un seul agent, du début à la fin.** Ne lance aucun sous-agent, sous aucun prétexte —
+ni pour « paralléliser les contrôles », ni pour « faire relire par un autre angle ».
+
+Deux raisons, et la seconde est la vraie. Un verdict rendu par un comité n'est plus un
+verdict : personne n'a vu l'ensemble, et l'orchestrateur reçoit un consensus au lieu d'un
+jugement. Et chaque agent que tu lances recharge tout le contexte du projet avant de faire
+quoi que ce soit — sur un projet documenté, c'est près de mille lignes relues pour rien.
+Mesuré : un objectif a consommé vingt-cinq agents là où trois suffisaient.
+
+Si le périmètre est trop large pour toi seul, ce n'est pas un problème de bras : c'est que
+la vérification demandée dépasse l'enjeu. Réduis-la, ou rends un verdict partiel en disant
+ce que tu n'as pas pu couvrir.
+
 ## Proportionne ton effort
 
 **La profondeur de vérification se calibre sur l'enjeu, pas sur ton zèle.** Vérifier plus

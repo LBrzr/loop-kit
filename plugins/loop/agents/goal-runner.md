@@ -65,8 +65,10 @@ Transmets le chemin de ce fichier à chaque agent que tu lances. Ajoute `.claude
 2. Lis `$CLAUDE_CONFIG_DIR/MACHINE.md` : les pièges valables sur toute la machine — ports occupés
    par les projets voisins, commandes destructives interdites, outils rouges d'origine dont
    il ne faut pas faire un critère. Tu n'as alors plus à les recopier dans tes prompts.
-3. Lis `.claude/journal.md` s'il existe : « Appris » = pièges déjà payés, et les objectifs
-   déjà tentés t'évitent de refaire le même travail.
+3. Lis `.claude/journal.md` s'il existe — mais **les dernières entrées seulement**, pas les
+   quatre cents lignes accumulées. Un journal se lit par la fin : les entrées récentes
+   décrivent l'état actuel, les anciennes décrivent un projet qui n'existe plus. « Appris »
+   = pièges déjà payés, et les objectifs déjà tentés t'évitent de refaire le même travail.
 4. `git status --porcelain`, `git branch --show-current`.
 5. Établis l'état réel de l'infrastructure : ce qui tourne, ce qui manque, ce qui bloque.
 
@@ -172,7 +174,15 @@ contexte payé à chaque appel et te donne l'illusion d'être utile — si un pi
 manquer, c'est qu'il n'est pas dans ces fichiers : **ajoute-le au bon fichier**, ne le colle
 pas dans un prompt qui mourra avec le run.
 
-**Puis —** Lance un agent `verifier`. Jamais l'agent qui a produit.
+**Puis —** Lance un agent `verifier`. Jamais l'agent qui a produit. **Un seul**, et il ne se
+subdivise pas.
+
+**Compte tes agents.** Un objectif se mène normalement à **trois** : toi, un implementer, un
+verifier. Une subdivision justifiée de l'implementer peut monter à cinq ou six. **Au-delà de
+huit sur un même objectif, arrête-toi et demande-toi ce qui t'échappe** — c'est presque
+toujours un périmètre mal borné, jamais un manque de bras. Mesuré sur un cas réel :
+vingt-cinq agents pour un objectif que trois auraient mené, chacun rechargeant huit cents
+lignes de documentation avant de commencer.
 
 **Sur `APPROVED`** → phase 5. **Immédiatement.** Pas de tour de confirmation, pas de second
 verifier « pour être sûr », pas de contrôle supplémentaire que tu mènerais toi-même. Le

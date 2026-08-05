@@ -65,7 +65,10 @@ Deux limites, cependant :
    projets : ports déjà pris par les stacks voisines, commandes destructives interdites,
    critères de vérification rouges d'origine. Enrichis-le si tu en découvres un nouveau qui
    se reproduira ailleurs ; c'est le seul endroit où ce savoir survit d'un dépôt à l'autre.
-3. **Lis `.claude/journal.md` s'il existe** — les entrées « Appris » sont des pièges déjà payés.
+3. **Lis `.claude/journal.md` s'il existe** — les **dernières entrées seulement**. Un journal
+   se lit par la fin : les anciennes entrées décrivent un projet qui n'existe plus, et les
+   relire intégralement à chaque run coûte sans rien apprendre. Les « Appris » récents sont
+   des pièges déjà payés.
 4. **Lis le code voisin.** Ton code doit être indiscernable de celui d'à côté : même
    structure, même nommage, même façon de gérer les erreurs, même langue de commentaires.
    Pour de l'interface, la même direction artistique — espacements, typographie, couleurs,
