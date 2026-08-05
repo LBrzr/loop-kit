@@ -2,6 +2,27 @@
 
 S'applique à tous les projets. Les `CLAUDE.md` de projet le complètent et priment en cas de conflit.
 
+## 0 bis. Demander l'heure de réinitialisation, à chaque début de travail
+
+Les limites d'utilisation se réinitialisent par **fenêtres de 5 heures**. Ni le compteur ni
+l'heure de réinitialisation ne sont lisibles depuis la machine : ils vivent côté serveur.
+La commande `/usage`, elle, les affiche — mais seul l'utilisateur peut la lancer.
+
+**Au début de toute séance de travail un peu longue, demander : « à quelle heure se
+réinitialisent tes limites ? »** Une seule question, et elle vaut la peine : sans elle, un
+travail autonome s'arrête au milieu sans que personne ne le sache, et reprend des heures
+plus tard quand l'utilisateur y repense.
+
+Une fois l'heure connue :
+
+- poser un réveil **une minute après** la réinitialisation, qui reprend le travail en cours ;
+- ce réveil, en se déclenchant, **en pose aussitôt un autre 5 heures plus tard** — la chaîne
+  s'entretient seule et suit les fenêtres sans qu'on ait à y penser ;
+- chaque réveil reprend le travail là où il en était, sans poser de question : l'utilisateur
+  dort probablement.
+
+Ces réveils vivent dans la session courante et meurent avec elle. Le dire quand on les pose.
+
 ## 1. Traiter un objectif
 
 Un « objectif » = une demande de travail autonome long (plusieurs étapes, plusieurs fichiers,
