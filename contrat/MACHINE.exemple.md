@@ -111,6 +111,25 @@ Vaut pour tout constat d'état : ports, conteneurs, processus. **Un silence n'es
 réponse.** Si la commande ne dit pas explicitement « rien », elle n'a rien prouvé — et c'est
 exactement ce qui a masqué les serveurs orphelins ci-dessus pendant trente-huit minutes.
 
+## `node --test --test-name-pattern` peut rendre un vert sans rien exécuter
+
+```
+node --test --test-name-pattern "<nom>" chemin/du/fichier.test.js
+→ tests 1 / pass 1 / fail 0   en 0,67 s
+```
+
+**Rien n'a tourné.** Le filtre a écarté le fichier, l'API n'a jamais démarré, la base n'a
+jamais été touchée — et la sortie est indiscernable d'un succès réel. Constaté en voulant
+rejouer un test isolément pour confirmer une correction.
+
+Le piège est vicieux parce qu'il apparaît exactement quand on cherche à *vérifier vite* : on
+isole un test, on le voit vert, on conclut. La durée est le seul indice, et il faut savoir
+qu'un test d'intégration ne peut pas rendre en moins d'une seconde.
+
+**La règle :** rejouer le **fichier entier**, sans `--test-name-pattern`, et lire le nombre
+de tests exécutés — pas seulement le nombre d'échecs. Un compte de tests anormalement bas
+est un vert qui ment.
+
 ## Docker tourne, mais rien n'est garanti
 
 Le démon est en général actif, les conteneurs non. Vérifier plutôt que présumer, et relever
