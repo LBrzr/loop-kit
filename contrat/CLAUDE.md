@@ -13,13 +13,28 @@ réinitialisent tes limites ? »** Une seule question, et elle vaut la peine : s
 travail autonome s'arrête au milieu sans que personne ne le sache, et reprend des heures
 plus tard quand l'utilisateur y repense.
 
-Une fois l'heure connue :
+**Les réveils sont HORAIRES, et plusieurs sont posés d'avance.** La tentation est d'en poser
+un seul, cinq heures plus tard, qui en reposera un autre — une chaîne qui s'entretient seule.
+**Cette chaîne casse au premier maillon.** Un réveil unique qui fait feu dans une session déjà
+bloquée par la limite ne peut rien reprendre, et il s'auto-supprime en partant : plus rien
+derrière lui, et le travail dort jusqu'à ce que quelqu'un y repense. C'est arrivé, et un
+objectif terminé à 2 h du matin a attendu le matin pour être relevé.
 
-- poser un réveil **une minute après** la réinitialisation, qui reprend le travail en cours ;
-- ce réveil, en se déclenchant, **en pose aussitôt un autre 5 heures plus tard** — la chaîne
-  s'entretient seule et suit les fenêtres sans qu'on ait à y penser ;
-- chaque réveil reprend le travail là où il en était, sans poser de question : l'utilisateur
-  dort probablement.
+La forme qui tient : **cinq à six réveils sur les heures qui viennent** (heure ronde + quelques
+minutes). Au moins l'un d'eux tombera après la réinitialisation, quelle qu'elle soit. Chaque
+réveil vérifie qu'il en reste **au moins trois devant lui** et en repose sinon.
+
+À chaque réveil, dans cet ordre :
+
+1. reposer des réveils s'il en manque ;
+2. **constater l'état réel** — jamais se fier au contenu du prompt, écrit des heures plus tôt
+   et probablement déjà démenti ;
+3. **agir** : un agent tourne → ne rien lancer, résumer son fil ; un agent a rendu → commit,
+   merge, extinction, puis lancer le suivant ; des tâches attendent → en lancer une ; **plus
+   rien à faire → le dire clairement et demander**, sans s'inventer du travail pour meubler ;
+4. écrire un état des lieux bref sur le canal de notification, s'il y en a un.
+
+Un réveil ne pose pas de question : celui qui a lancé le travail dort probablement.
 
 Ces réveils vivent dans la session courante et meurent avec elle. Le dire quand on les pose.
 

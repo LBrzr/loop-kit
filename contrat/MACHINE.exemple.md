@@ -57,6 +57,51 @@ Beaucoup de projets ont un outillage rouge ou inutilisable dès le départ :
 
 Un critère qui était déjà rouge avant le travail ne prouve rien sur le travail.
 
+## Un gestionnaire de paquets peut réinstaller AVANT chaque script, et sortir en 1
+
+Depuis pnpm 11 (`verify-deps-before-run`), **toute** commande `pnpm run` lance d'abord un
+`pnpm install`. Si le projet a des dépendances à script de build non approuvées, cet install
+se termine par `[ERR_PNPM_IGNORED_BUILDS]` et **sort en 1** — le script demandé n'est jamais
+exécuté, et rien dans le message ne le dit.
+
+Le symptôme apparaît typiquement quand un `package.json` vient d'être modifié : donc en plein
+run autonome. Contournement pour une commande, sans toucher à la configuration partagée :
+
+```bash
+pnpm --config.verify-deps-before-run=false --filter <paquet> <script>
+```
+
+> Vérifie si ton gestionnaire de paquets a un comportement équivalent, et remplace ou
+> supprime cette section.
+
+## Construire pendant qu'un serveur de développement tourne casse le serveur
+
+Un `next build` et un `next dev` écrivent dans le **même** dossier de sortie. Construire
+pendant que le serveur de dev tourne remplace les fragments sous ses pieds, et il se met à
+rendre `Cannot find module './960.js'` sur une page qui marchait une minute plus tôt. Ce n'est
+pas une faute applicative, et rien dans le message ne le dit.
+
+Le même piège existe côté serveur (`nest build` réécrivant le dossier qu'un `--watch`
+utilise) : le watcher meurt, se relève seul en quelques secondes, et toute requête envoyée
+pendant cette fenêtre échoue sans explication.
+
+**La règle : on ne mène pas une construction et un parcours navigateur en parallèle.**
+
+## Le navigateur piloté est PARTAGÉ entre les sessions
+
+Plusieurs agents peuvent piloter le même navigateur en même temps, et **la page sélectionnée
+dérive** : on prend une capture sur sa page, et le clic qui suit part sur l'onglet d'un autre
+projet. Le risque n'est pas de perdre une action, c'est **d'en exécuter une chez le voisin**.
+
+`select_page` juste avant CHAQUE action, jamais en début de série. Créer sa page dans un
+contexte isolé et nommé. **Ne fermer que les pages qu'on a soi-même ouvertes** — les autres
+ne sont pas à nous.
+
+Attention aux outils qui n'ont pas d'identifiant de page à valider (exécution de script,
+navigation) : ils partent sur la page sélectionnée *au moment de l'appel*, sans rien signaler,
+et « réussissent » chez le voisin. Commencer tout script par un garde qui vérifie l'URL et
+abandonne sinon.
+
 ## Aucun appel payant depuis un test
 
 Les projets ont souvent des clés réelles dans leur `.env` — fournisseurs de modèles, envoi
@@ -129,6 +174,58 @@ qu'un test d'intégration ne peut pas rendre en moins d'une seconde.
 **La règle :** rejouer le **fichier entier**, sans `--test-name-pattern`, et lire le nombre
 de tests exécutés — pas seulement le nombre d'échecs. Un compte de tests anormalement bas
 est un vert qui ment.
+
+## Le répertoire courant dérive : tout git se fait en `git -C`
+
+Le répertoire courant persiste d'un appel à l'autre, mais **rien ne garantit qu'il soit resté
+celui qu'on croit** — un agent voisin, un outil, un `cd` d'une commande composée l'ont
+peut-être déplacé depuis. Un `git status` lancé sans le dire répond alors sur le projet d'à
+côté.
+
+Le symptôme est le pire possible : un agent en fin de run s'est vu répondre `main` / **0
+modification** pour un travail de trente-trois fichiers non commités. Il a annoncé sa
+livraison disparue. Elle était intacte — le shell avait dérivé sur un projet voisin, qui était
+réellement propre et réellement sur `main`. La sortie était vraie, la question était posée au
+mauvais dépôt.
+
+```bash
+R=/chemin/absolu/du/projet
+git -C "$R" status --porcelain
+git -C "$R" log --oneline -1 main
+```
+
+Vaut aussi pour `pnpm --dir`, `docker compose -f <chemin>`, et toute commande dont le sens
+change selon l'endroit d'où on la lance. **Le pire n'est pas de croire un travail perdu —
+c'est de le croire présent ailleurs**, et d'agir sur le dépôt d'un voisin en pensant être
+chez soi.
+
+## Une largeur ne se photographie pas, elle se mesure
+
+En émulation mobile, un navigateur **rétrécit la page pour la faire tenir**. Une page dont le
+document mesure 439 px dans une fenêtre de 390 rend donc `window.scrollX === 0` : tout semble
+aller, et rien ne défile. Constaté sur un écran réellement cassé au doigt.
+
+Le seul critère qui tranche est **`document.documentElement.scrollWidth` comparé à la largeur
+visée**. Corollaire pour les captures : une capture prise **tiroir ou menu ouvert** ne prouve
+rien — le voile masque exactement ce qu'il fallait regarder.
+
+**Mesurer d'abord, photographier ensuite.** Un chiffre survit à la relecture, une capture non.
+
+## Charger une page dans un état ne prouve pas qu'on l'a vérifiée
+
+Le corollaire de la section précédente, et il se répète à chaque campagne d'interface. Un test
+qui charge la page en thème sombre, dans une autre langue, ou sur un gabarit donné, et qui
+n'en tire aucun **critère chiffré**, passe au vert quel que soit le rendu. Il prouve que la
+page ne plante pas — rien d'autre.
+
+**La question qui tranche : quelle mutation rendrait ce test rouge ?** Si la réponse est « une
+erreur JavaScript », le test ne vérifie pas l'état, il vérifie que la page existe. Un contraste
+se calcule, une largeur se mesure, la présence d'une chaîne traduite se compare à son fichier
+de messages.
+
+**Le piège jumeau : la garde qui ne peut pas se déclencher.** Un sélecteur qui n'existe nulle
+part dans l'application rend une garde silencieusement vide, et elle se lit comme un contrôle
+passé. Vérifier qu'une garde *sait* échouer coûte une mutation et se paie une fois.
 
 ## Docker tourne, mais rien n'est garanti
 
