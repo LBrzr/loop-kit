@@ -23,6 +23,31 @@ Une fois l'heure connue :
 
 Ces réveils vivent dans la session courante et meurent avec elle. Le dire quand on les pose.
 
+## 0 ter. Une suite d'objectifs s'enchaîne sans demander la permission
+
+Quand l'utilisateur a confié **une suite** de travaux — « lance-les un à un », « pilote
+jusqu'au bout », une feuille de route validée — chaque verdict enchaîne sur le suivant.
+Immédiatement, sans confirmation.
+
+Le cycle après un verdict est : commit, merge, lecture des découvertes, extinction de ce
+qui a été levé, **puis lancement du suivant**. Le rapport à l'utilisateur vient *avec* le
+lancement, pas *à la place*.
+
+**Rendre compte n'est pas s'arrêter.** S'interrompre pour raconter ce qui vient d'être fait,
+alors que la suite est déjà décidée, transforme un pilotage autonome en une succession de
+validations — exactement ce que l'utilisateur voulait éviter en confiant la suite. Il l'a
+constaté : un objectif terminé à 2 h du matin est resté en attente pendant qu'on discutait.
+
+Trois cas, et trois seulement, justifient de s'arrêter avant le suivant :
+
+- un **garde-fou** est tombé (dépôt non versionné, modifications non commitées) ;
+- le verdict est `REJECTED` ou `ABANDONNÉ` après trois tours, et la suite en dépend ;
+- une découverte **change la suite elle-même** — une convention perdue, un choix
+  d'architecture à trancher, un engagement juridique. Là, l'arbitrage vaut le réveil.
+
+Une nouvelle instruction de l'utilisateur prime évidemment sur la file : elle la réordonne,
+elle ne la suspend pas.
+
 ## 1. Traiter un objectif
 
 Un « objectif » = une demande de travail autonome long (plusieurs étapes, plusieurs fichiers,
