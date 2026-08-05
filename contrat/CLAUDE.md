@@ -48,6 +48,25 @@ Trois cas, et trois seulement, justifient de s'arrêter avant le suivant :
 Une nouvelle instruction de l'utilisateur prime évidemment sur la file : elle la réordonne,
 elle ne la suspend pas.
 
+## 0 quater. Prévenir sur le canal à chaque verdict
+
+Si un canal de notification est configuré (Telegram, Slack, Discord…), **ce qui est écrit
+dans le terminal n'y parvient jamais** : il faut passer par l'outil d'envoi du canal.
+
+**Dès qu'un agent rend son verdict, ou qu'une tâche confiée aboutit, envoyer un message.**
+Celui qui a lancé le travail est souvent loin de sa machine ; un objectif terminé qui attend
+en silence ne sert à personne — et c'est précisément ce qu'un pilotage autonome doit éviter.
+
+Le message contient, dans cet ordre : le **verdict** et ce qui a été livré en une ligne ; ce
+qui a été **découvert et non corrigé**, s'il y a de quoi décider ; ce qui **part ensuite**,
+puisque la suite s'enchaîne sans attendre de réponse.
+
+Court, sans mise en forme lourde : cela se lit sur un téléphone. Le détail complet reste
+dans le terminal.
+
+**Ne pas envoyer** pour une étape intermédiaire ni pour annoncer qu'un agent démarre. Une
+notification qui n'apprend rien use celles qui comptent.
+
 ## 1. Traiter un objectif
 
 Un « objectif » = une demande de travail autonome long (plusieurs étapes, plusieurs fichiers,
